@@ -12,41 +12,66 @@
     <!-- Tailwind via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- Tailwind via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
     <!-- Skills marquee styles -->
     <style>
       .skills-marquee {
-        position: relative;
+        overflow: hidden;
+        width: 100%;
+        position: absolute;
+        left: 0;
         mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        height: 10rem;
       }
 
-      .skills-marquee-track {
-        display: inline-flex;
-        align-items: center;
-        gap: 2.5rem;
-        white-space: nowrap;
-        animation: skills-marquee 35s linear infinite;
+      .skills-track {
+        display: flex;
+        gap: 2rem;
+        width: max-content;
+        animation: scroll 30s linear infinite;
+        will-change: transform;
+        padding-right: 2rem;
       }
 
-      .skills-marquee:hover .skills-marquee-track {
+      .skills-marquee:hover .skills-track {
         animation-play-state: paused;
       }
 
-      @keyframes skills-marquee {
+      @keyframes scroll {
         0% {
-          transform: translateX(0);
+          transform: translate3d(0, 0, 0);
         }
         100% {
-          transform: translateX(-50%);
+          transform: translate3d(-50%, 0, 0);
         }
+      }
+
+      .skill-card {
+        flex-shrink: 0;
+        width: 130px;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        padding: 1.25rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        transition: 0.25s;
+      }
+
+      .skill-card:hover {
+        border-color: white;
+        background: rgba(0, 0, 0, 0.6);
       }
     </style>
   </head>
   <body class="antialiased text-white font-mono">
-    <div class="grid grid-rows-layout min-h-screen font-mono bg-gradient-to-r from-indigo-700 to-purple-800 p-1">
+    <div
+      class="grid grid-rows-layout min-h-screen font-mono bg-gradient-to-r from-indigo-700 to-purple-800 overflow-x-hidden"
+    >
       <!-- Header -->
       <header class="fixed top-0 w-full row-start-1 p-6 bg-black/20 backdrop-blur flex flex-col z-20">
         <div class="flex items-center justify-between">
@@ -73,7 +98,10 @@
         </div>
 
         <!-- Mobile Menu -->
-        <nav class="hidden md:hidden flex translate-y-2 w-full justify-between" id="mobile-menu">
+        <nav
+          class="hidden md:hidden translate-y-2 w-full items-center justify-center text-center grid grid-cols-3"
+          id="mobile-menu"
+        >
           <a href="#about" class="font-medium hover:underline">About</a>
           <a href="#skills" class="font-medium hover:underline">Skills</a>
           <a href="#experience" class="font-medium hover:underline">Work</a>
@@ -86,7 +114,7 @@
       <!-- Main Content -->
       <main class="row-start-2">
         <!-- Hero -->
-        <section id="hero" class="h-screen flex flex-col justify-center items-center px-8 text-center">
+        <section id="hero" class="h-screen flex flex-col justify-center items-center px-6 sm:px-8 text-center">
           <!-- <p class="uppercase tracking-[0.3em] text-xs md:text-sm mb-3 text-gray-200/80">
             Software Engineer · Full-Stack · DevOps
           </p> -->
@@ -101,7 +129,7 @@
         </section>
 
         <!-- About Me -->
-        <section id="about" class="min-h-screen flex flex-col items-center px-8 pt-30 text-center">
+        <section id="about" class="min-h-screen flex flex-col items-center px-6 sm:px-8 pt-30 text-center">
           <img
             src="images/me.jpeg"
             alt="Sammy's photo"
@@ -131,23 +159,22 @@
         </section>
 
         <!-- Skills -->
-        <section id="skills" class="min-h-screen px-8 pt-30 text-center flex flex-col items-center">
+        <section id="skills" class="min-h-screen px-6 sm:px-8 pt-30 text-center flex flex-col items-center">
           <h2 class="text-3xl font-semibold mb-4 md:mb-10">Skills</h2>
           <p class="max-w-2xl text-gray-100/90 mb-8">
             A quick snapshot of the technologies and areas I’m comfortable with across the stack.
           </p>
 
           <!-- NEW: Horizontal scrolling skills marquee -->
-          <div class="w-full max-w-5xl mb-10 overflow-hidden">
+          <div class="w-full max-w-5xl mb-10 relative overflow-x-hidden" style="height: 10rem">
             <div class="skills-marquee">
-              <div class="skills-marquee-track">
+              <div class="skills-track" id="skillsTrack">
                 <!-- Sequence 1: card-style skills -->
-
                 <a
                   href="https://react.dev"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/react.svg" alt="React" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">React</span>
@@ -157,7 +184,7 @@
                   href="https://nextjs.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/nextjs.svg" alt="Next.js" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Next.js</span>
@@ -167,7 +194,7 @@
                   href="https://www.typescriptlang.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/typescript.svg" alt="TypeScript" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">TypeScript</span>
@@ -177,7 +204,7 @@
                   href="https://developer.mozilla.org/docs/Web/JavaScript"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/javascript.svg" alt="JavaScript" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">JavaScript</span>
@@ -187,7 +214,7 @@
                   href="https://tailwindcss.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/tailwind.svg" alt="Tailwind CSS" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Tailwind</span>
@@ -197,7 +224,7 @@
                   href="https://nodejs.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/nodejs.svg" alt="Node.js" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Node.js</span>
@@ -207,7 +234,7 @@
                   href="https://fastapi.tiangolo.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/fastapi.svg" alt="FastAPI" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">FastAPI</span>
@@ -217,7 +244,7 @@
                   href="https://www.docker.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/docker.svg" alt="Docker" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Docker</span>
@@ -227,7 +254,7 @@
                   href="https://kubernetes.io/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/kubernetes.svg" alt="Kubernetes" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Kubernetes</span>
@@ -237,7 +264,7 @@
                   href="https://helm.sh/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/helm.svg" alt="Helm" class="h-16 w-16 mb-2 bg-white rounded-md" />
                   <span class="text-sm md:text-base font-semibold">Helm</span>
@@ -247,7 +274,7 @@
                   href="https://github.com/features/actions"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/github-actions.svg" alt="GitHub Actions" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">GitHub Actions</span>
@@ -257,7 +284,7 @@
                   href="https://www.nginx.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/nginx.svg" alt="NGINX" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">NGINX</span>
@@ -267,7 +294,7 @@
                   href="https://www.mongodb.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/mongodb.svg" alt="MongoDB" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">MongoDB</span>
@@ -277,7 +304,7 @@
                   href="https://aws.amazon.com/dynamodb/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/dynamodb.svg" alt="DynamoDB" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">DynamoDB</span>
@@ -287,7 +314,7 @@
                   href="https://www.postgresql.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/postgresql.svg" alt="PostgreSQL" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">PostgreSQL</span>
@@ -297,7 +324,7 @@
                   href="https://redis.io/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/redis.svg" alt="Redis" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Redis</span>
@@ -307,20 +334,19 @@
                   href="https://git-scm.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/git.svg" alt="Git" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Git/GitHub</span>
                 </a>
 
-                <!-- Duplicate the sequence for seamless looping -->
-                <!-- Easiest: copy all the <a> blocks above and paste them again here -->
+                <!-- Duplication -->
 
                 <a
                   href="https://react.dev"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/react.svg" alt="React" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">React</span>
@@ -330,7 +356,7 @@
                   href="https://nextjs.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/nextjs.svg" alt="Next.js" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Next.js</span>
@@ -340,7 +366,7 @@
                   href="https://www.typescriptlang.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/typescript.svg" alt="TypeScript" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">TypeScript</span>
@@ -350,7 +376,7 @@
                   href="https://developer.mozilla.org/docs/Web/JavaScript"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/javascript.svg" alt="JavaScript" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">JavaScript</span>
@@ -360,7 +386,7 @@
                   href="https://tailwindcss.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/tailwind.svg" alt="Tailwind CSS" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Tailwind</span>
@@ -370,7 +396,7 @@
                   href="https://nodejs.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/nodejs.svg" alt="Node.js" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Node.js</span>
@@ -380,9 +406,9 @@
                   href="https://fastapi.tiangolo.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
-                  <img src="images/skills/fastapi.svg" alt="FastAPI" class="h-16 w-16 mb-2 bg-[#019486]" />
+                  <img src="images/skills/fastapi.svg" alt="FastAPI" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">FastAPI</span>
                 </a>
 
@@ -390,7 +416,7 @@
                   href="https://www.docker.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/docker.svg" alt="Docker" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Docker</span>
@@ -400,7 +426,7 @@
                   href="https://kubernetes.io/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/kubernetes.svg" alt="Kubernetes" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Kubernetes</span>
@@ -410,9 +436,9 @@
                   href="https://helm.sh/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
-                  <img src="images/skills/helm.svg" alt="Helm" class="h-16 w-16 mb-2" />
+                  <img src="images/skills/helm.svg" alt="Helm" class="h-16 w-16 mb-2 bg-white rounded-md" />
                   <span class="text-sm md:text-base font-semibold">Helm</span>
                 </a>
 
@@ -420,7 +446,7 @@
                   href="https://github.com/features/actions"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/github-actions.svg" alt="GitHub Actions" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">GitHub Actions</span>
@@ -430,7 +456,7 @@
                   href="https://www.nginx.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/nginx.svg" alt="NGINX" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">NGINX</span>
@@ -440,7 +466,7 @@
                   href="https://www.mongodb.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/mongodb.svg" alt="MongoDB" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">MongoDB</span>
@@ -450,7 +476,7 @@
                   href="https://aws.amazon.com/dynamodb/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/dynamodb.svg" alt="DynamoDB" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">DynamoDB</span>
@@ -460,7 +486,7 @@
                   href="https://www.postgresql.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/postgresql.svg" alt="PostgreSQL" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">PostgreSQL</span>
@@ -470,7 +496,7 @@
                   href="https://redis.io/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/redis.svg" alt="Redis" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Redis</span>
@@ -480,7 +506,7 @@
                   href="https://git-scm.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 min-w-[130px] md:min-w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
+                  class="flex flex-col min-w-32 items-center justify-center bg-black/40 border border-white/10 rounded-2xl px-6 py-4 w-[130px] md:w-[150px] shadow-lg shadow-black/40 hover:border-white/40 hover:bg-black/60 transition"
                 >
                   <img src="images/skills/git.svg" alt="Git" class="h-16 w-16 mb-2" />
                   <span class="text-sm md:text-base font-semibold">Git/GitHub</span>
@@ -527,7 +553,7 @@
         </section>
 
         <!-- Work Experience -->
-        <section id="experience" class="min-h-screen px-8 pt-30 text-center flex flex-col items-center">
+        <section id="experience" class="min-h-screen px-6 sm:px-8 pt-30 text-center flex flex-col items-center">
           <h2 class="text-3xl font-semibold mb-4 md:mb-8">Work Experience</h2>
           <p class="max-w-2xl text-gray-100/90 mb-8">A snapshot of what I’ve been working on recently.</p>
 
@@ -615,7 +641,7 @@
         </section>
 
         <!-- Projects -->
-        <section id="projects" class="min-h-screen px-8 pt-30 text-center flex flex-col items-center">
+        <section id="projects" class="min-h-screen px-6 sm:px-8 pt-30 text-center flex flex-col items-center">
           <h2 class="text-3xl font-semibold mb-4 md:mb-12">Projects</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
             <!-- Project Card 1 -->
@@ -686,7 +712,7 @@
         </section>
 
         <!-- Resume -->
-        <section id="resume" class="h-screen flex flex-col items-center px-8 pt-30 text-center">
+        <section id="resume" class="h-screen flex flex-col items-center px-6 sm:px-8 pt-30 text-center">
           <h2 class="text-3xl font-semibold mb-4">Resume</h2>
           <p class="text-gray-100/90 mb-6 max-w-xl">
             You can find a detailed summary of my experience, skills, and projects in my resume.
