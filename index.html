@@ -548,10 +548,10 @@
           </div>
         </section>
 
-        <!-- Work Experience -->
-        <section id="experience" class="min-h-screen px-6 sm:px-8 pt-30 text-center flex flex-col items-center">
-          <h2 class="text-3xl font-semibold mb-4 md:mb-8">What I’m Building</h2>
-          <p class="max-w-2xl text-gray-100/90 mb-8">A snapshot of my current product and engineering work, from indie apps to launch-ready tools.</p>
+        <!-- Indie Work -->
+        <section id="indie" class="min-h-screen px-6 sm:px-8 pt-30 text-center flex flex-col items-center">
+          <h2 class="text-3xl font-semibold mb-4 md:mb-8">Indie & Founder Work</h2>
+          <p class="max-w-2xl text-gray-100/90 mb-8">A snapshot of the products I’m launching as an indie creator and maker.</p>
 
           <div class="w-full max-w-5xl">
             <!-- Timeline wrapper -->
@@ -561,8 +561,7 @@
                 <div
                   class="h-16 min-w-fit rounded-2xl bg-white border border-white/15 flex items-center justify-center overflow-hidden shadow-lg shadow-black/50"
                 >
-                  <!-- Replace with your actual Sahamati logo path -->
-                  <img src="images/sahamati-vertical-logo.png" alt="Sahamati logo" class="h-15 w-15 object-contain" />
+                  <img src="images/little-errands-logo.png" alt="Little Errands logo" class="h-15 w-15 object-contain" />
                 </div>
                 <!-- Horizontal md:Vertical timeline bar -->
                 <div
@@ -601,6 +600,95 @@
                     </li>
                     <li>
                       Sharing progress publicly, documenting learnings, and building in public as a core part of product growth.
+                    </li>
+                  </ul>
+
+                  <div class="mt-4 flex flex-wrap gap-2 text-[0.65rem] md:text-xs">
+                    <span
+                      class="px-2 py-1 rounded-full bg-indigo-500/25 border border-indigo-300/40 uppercase tracking-wide"
+                    >
+                      Full-Stack
+                    </span>
+                    <span
+                      class="px-2 py-1 rounded-full bg-purple-500/25 border border-purple-300/40 uppercase tracking-wide"
+                    >
+                      Backend
+                    </span>
+                    <span class="px-2 py-1 rounded-full bg-blue-500/25 border border-blue-300/40 uppercase tracking-wide">
+                      DevOps
+                    </span>
+                    <span
+                      class="px-2 py-1 rounded-full bg-emerald-500/25 border border-emerald-300/40 uppercase tracking-wide"
+                    >
+                      Cloud-Native
+                    </span>
+                    <span class="px-2 py-1 rounded-full bg-amber-500/25 border border-amber-300/40 uppercase tracking-wide">
+                      APIs &amp; Automation
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Work Experience -->
+        <section id="experience" class="min-h-screen px-6 sm:px-8 pt-30 text-center flex flex-col items-center">
+          <h2 class="text-3xl font-semibold mb-4 md:mb-8">Work Experience</h2>
+          <p class="max-w-2xl text-gray-100/90 mb-8">A snapshot of what I’ve been working on recently.</p>
+
+          <div class="w-full max-w-5xl">
+            <!-- Timeline wrapper -->
+            <div class="flex flex-col md:flex-row gap-4 md:gap-8">
+              <!-- Left: logo + horizontal/vertical bar -->
+              <div class="flex flex-row md:flex-col items-center md:items-center">
+                <div
+                  class="h-16 min-w-fit rounded-2xl bg-white border border-white/15 flex items-center justify-center overflow-hidden shadow-lg shadow-black/50"
+                >
+                  <img src="images/sahamati-vertical-logo.png" alt="Sahamati logo" class="h-15 w-15 object-contain" />
+                </div>
+                <!-- Horizontal md:Vertical timeline bar -->
+                <div
+                  class="md:w-px md:flex-1 w-full h-px bg-gradient-to-r md:bg-gradient-to-b from-indigo-300/80 via-purple-400/70 to-transparent mt-3 md:mt-3 md:ml-0 ml-3"
+                ></div>
+              </div>
+
+              <!-- Right: content card -->
+              <div class="flex-1">
+                <div class="bg-black/35 border border-white/10 rounded-2xl p-5 md:p-6 shadow-xl shadow-black/50 text-left">
+                  <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-3">
+                    <div>
+                      <h3 class="text-xl md:text-2xl font-semibold">Software Engineer</h3>
+                      <p class="text-sm md:text-base text-indigo-100/90">Sahamati · Bengaluru, India</p>
+                    </div>
+                    <p class="text-xs md:text-sm text-gray-300/90 font-mono">Aug 2025 — Present</p>
+                  </div>
+
+                  <p class="text-sm md:text-base text-gray-100/90 mb-4">
+                    Working across the stack to build internal tools, automation, and cloud-native workflows that support
+                    India’s Account Aggregator ecosystem.
+                  </p>
+
+                  <ul class="space-y-2 text-xs md:text-sm text-gray-100/90 list-disc list-inside">
+                    <li>
+                      Building full-stack web dashboards with React/Next.js and TypeScript, focusing on clear UX,
+                      performance, and reliability.
+                    </li>
+                    <li>
+                      Designing and integrating backend services and APIs using Node.js, Python/FastAPI, and modern REST
+                      patterns.
+                    </li>
+                    <li>
+                      Working with Docker, Kubernetes, and Helm to containerize apps, define deployments, and run scheduled
+                      jobs and automations.
+                    </li>
+                    <li>
+                      Using MongoDB, PostgreSQL, Redis, and queues/cron-style workflows to connect services to real data and
+                      background tasks.
+                    </li>
+                    <li>
+                      Collaborating closely with engineers and stakeholders to plan, test, and ship features safely to
+                      production environments.
                     </li>
                   </ul>
 
@@ -683,7 +771,7 @@
             <!-- Project Card 4 -->
             <div class="border border-gray-700 rounded-lg overflow-hidden p-4 flex flex-col items-center bg-[#0a0a0a]/20">
               <img
-                src="images/file.svg"
+                src="images/little-errands-logo.png"
                 alt="Little Errands"
                 width="400"
                 height="200"
